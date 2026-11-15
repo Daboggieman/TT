@@ -91,7 +91,19 @@ def list_task():
     for task in tasks.values():
         print(task.id, task.title, task.done, task.tags)
     task_id = input("enter task id").strip()
-    
+    if int(task_id) not in tasks:
+        print("task not found")
+        return
+    task = tasks[task_id]
+    print(f"id: {task.id}")
+    print(f"title: {task.title}")
+    print(f"id: {task.done}")
+    print(f"id: {task.tags}")
+
+    print("------------end-----------")
+
+
+
 
 def complete_task(id):
     pass

@@ -16,7 +16,6 @@ class Task:
 
 
 tasks = {}
-counter = 0
 
 def load_counter():
     if not COUNTER_FILE.exists():
@@ -42,47 +41,57 @@ def save_counter(counter):
 
 
 def generate_task_id(counter):
-    new_counter, task_id = counter + 1
-    task_id = f"{new_counter}"
+    new_counter = counter + 1
     save_counter(new_counter)
-    return str(task_id), new_counter
+    return new_counter, new_counter
+
+counter = load_counter()
 
 
 def add_task():
+    global counter
     while True:
         title = input("enter title").strip()
         if title:
             break
         print("title cannot be empty")
     while True:
-        done = input("has this task already been completed? [y/n]").strip().lower()
-        if done:
+        answer = input("has this task already been completed? [y/n]").strip().lower()
+        if not answer:
             print("task status cannot be empty")
-            break
-        if done not in ("y", "n"):
+            continue
+        if answer not in ("y", "n"):
             print()
-            break
-        if done == "y":
+            continue
+        if answer == "y":
             done = True
-        elif done == "n":
+        elif answer == "n":
             done = False
+            break
     while True:
         tags = list(input("[optional] add a tag for your task"))
         break
     
     task_id, counter = generate_task_id(counter)
-    counter = counte
     task = Task(
         id = task_id,
         title = title,
-        done = done
-        tags = tags
-
+        done = done,
+        tags = tags,
     )
+    tasks[task_id] = task
+    dump_json(DATA_FILE, task)
+    print(f"task added: {task_id} - {task.title}")
 
 
-def list_all_task():
-    pass
+def list_task():
+    if not tasks:
+        print("no task available yet")
+        return
+    for task in tasks.values():
+        print(task.id, task.title, task.done, task.tags)
+    task_id = input("enter task id").strip()
+    
 
 def complete_task(id):
     pass

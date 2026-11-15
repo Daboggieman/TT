@@ -1,6 +1,5 @@
 from dataclasses import dataclass, field
 from typing import List
-from main import 
 from read_load import (
     load_json, 
     COUNTER_FILE,
@@ -46,8 +45,7 @@ def generate_task_id(counter):
     new_counter, task_id = counter + 1
     task_id = f"{new_counter}"
     save_counter(new_counter)
-    counter = new_counter
-    return task_id
+    return str(task_id), new_counter
 
 
 def add_task():
@@ -59,18 +57,29 @@ def add_task():
     while True:
         done = input("has this task already been completed? [y/n]").strip().lower()
         if done:
+            print("task status cannot be empty")
             break
-        print("task cannot be empty")
+        if done not in ("y", "n"):
+            print()
+            break
         if done == "y":
             done = True
         elif done == "n":
             done = False
-        
     while True:
         tags = list(input("[optional] add a tag for your task"))
-        if tags:
-            tags = [""]
-    id = generate_task_id(counter)
+        break
+    
+    task_id, counter = generate_task_id(counter)
+    counter = counte
+    task = Task(
+        id = task_id,
+        title = title,
+        done = done
+        tags = tags
+
+    )
+
 
 def list_all_task():
     pass

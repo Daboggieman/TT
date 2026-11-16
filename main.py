@@ -8,7 +8,7 @@ from tt.read_load import(
 from tt.task import (
     Task,
     add_task,
-    list_all_task,
+    list_task,
     complete_task,
     delete_task,
     search_by,

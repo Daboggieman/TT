@@ -17,6 +17,9 @@ class Task:
 
 tasks = {}
 
+def load_all_task():
+    pass
+
 def load_counter():
     if not COUNTER_FILE.exists():
         return 0
@@ -116,3 +119,5 @@ def search_by(filter):
 
 def pending_tasks():
     pass
+
+print(tasks)

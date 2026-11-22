@@ -23,3 +23,5 @@ DATA_DIR.mkdir(exist_ok=True)   # creates the folder if missing, no error if it 
 DATA_FILE = DATA_DIR / "tasks.json"
 COUNTER_FILE = DATA_DIR / "counter.json"
 
+def main():
+    pass

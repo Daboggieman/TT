@@ -1,5 +1,6 @@
 # this interacts with the user, this is the main orchestrator of the application
 from pathlib import Path
+import sys
 from task import (
     add_task,
     complete_task,
@@ -7,11 +8,7 @@ from task import (
     list_task,
     pending_tasks,
     load_counter,
-    save_counter,
     load_json,
-    dump_json,
-    Task,
-    generate_task_id,
     search_by
 )
 
@@ -23,5 +20,39 @@ DATA_DIR.mkdir(exist_ok=True)   # creates the folder if missing, no error if it 
 DATA_FILE = DATA_DIR / "tasks.json"
 COUNTER_FILE = DATA_DIR / "counter.json"
 
-def main():
-    pass
+tasks = load_json(DATA_FILE)
+
+print("-----------Tasks Tracker----------")
+print("choose an action")
+print("1. add task")
+print("2. complete task")
+print("3. list tasks")
+print("4. delete task")
+print("5. pending tasks")
+print("6. search task")
+print("7. Exit")
+print("----------------------------------")
+print("\n")
+
+user_action = int(input("select an action: "))
+
+match user_action:
+    case 1:
+        add_task()
+    case 2:
+        complete_input_id = int(input("input the task ID: "))
+        complete_task(complete_input_id)
+    case 3:
+        list_task()
+    case 4: 
+        delete_task_id = int(input("input the task ID: "))
+        delete_task(delete_task_id)
+    case 5:
+        pending_tasks()
+    case 6:
+        search_filter = (input("input your keyword"))
+        search_by(search_filter)
+    case 7:
+        print("exiting....")
+        sys.exit(0)
+
